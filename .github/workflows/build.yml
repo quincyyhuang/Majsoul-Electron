@@ -3,12 +3,30 @@ on: workflow_dispatch
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
-  build:
-    runs-on: macos-latest
+  mac-build:
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
       - run: npm install
-      - run: npm run build -- --mac --win --linux --publish always
+      - run: npm run build -- --mac --publish always
+  win-build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm run build -- --win --publish always
+  linux-build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm run build -- --linux --publish always
