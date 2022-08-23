@@ -83,17 +83,46 @@ const createGameWindow = (settings) => {
 
   const serverItem = servers.find(s => s.name === server);
   if (serverItem) {
-    const win = new BrowserWindow({
-      width: width,
-      height: height,
-      useContentSize: true,
-      show: false,
-      resizable: allowWindowResize,
-      maximizable: allowWindowResize,
-    });
+    let win;
 
-    if (allowWindowResize && keepAspectRatio) {
-      win.setAspectRatio(16/9);
+    if (process.platform === "darwin" || process.platform === "linux") {
+      win = new BrowserWindow({
+        width: width,
+        height: height,
+        useContentSize: true,
+        show: false,
+        resizable: allowWindowResize,
+        maximizable: allowWindowResize,
+        fullscreenable: allowWindowResize
+      });
+
+      if (allowWindowResize && keepAspectRatio) {
+        win.setAspectRatio(16/9);
+      }
+    } else {
+      win = new BrowserWindow({
+        width: width,
+        height: height,
+        useContentSize: true,
+        show: false,
+        maximizable: allowWindowResize,
+        fullscreenable: allowWindowResize
+      });
+
+      // Prevent resize workaround on Windows
+      if (allowWindowResize === false) {
+        win.on('will-resize', (event, _) => {
+          event.preventDefault();
+        });
+      } else {
+        if (keepAspectRatio === true) {
+          // Keep aspect ratio workaround on Windows
+          win.on('resized', () => {
+            const [width, _] = win.getContentSize();
+            win.setContentSize(width, Math.round(width * 9 / 16));
+          });
+        }
+      }
     }
 
     // Pass game url by query string
