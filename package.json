@@ -24,13 +24,31 @@
     "appId": "io.quincyhuang.majsoul",
     "mac": {
       "category": "public.app-category.games",
-      "target": "dmg"
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ]
     },
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": "x64"
+        }
+      ]
     },
     "linux": {
-      "target": "AppImage",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": "x64"
+        }
+      ],
       "category": "Game",
       "files": [
         "./build/icon.png",

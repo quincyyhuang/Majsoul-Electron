@@ -11,4 +11,4 @@ jobs:
         with:
           node-version: '16'
       - run: npm install
-      - run: npm run build -- --x64 --arm64
+      - run: npm run build -- --mac --win --linux --publish always
