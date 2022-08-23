@@ -1,5 +1,7 @@
+const fs = require('fs');
 const path = require("path");
 const { app, BrowserWindow, ipcMain, screen, Menu, session, shell } = require('electron');
+const format = require('date-fns/format');
 const store = require("./store");
 
 const servers = require("./constants/servers.json");
@@ -8,6 +10,15 @@ const resolutions = require("./constants/resolutions.json");
 // Global reference to settingsWin
 let settingsWin = null;
 let gameWin = null;
+
+const screenshot = async () => {
+  const desktopPath = app.getPath("desktop");
+  if (gameWin) {
+    let image = await gameWin.webContents.capturePage();
+    let outputFilePath = path.join(desktopPath, `majsoul-electron-capture-${format(new Date(), 'MM-dd-yyyy-HH-mm-ss')}.png`);
+    await fs.promises.writeFile(outputFilePath, image.toPNG());
+  }
+}
 
 const makeMenu = () => {
   const isMac = process.platform === 'darwin';
@@ -27,7 +38,12 @@ const makeMenu = () => {
     {
       label: 'File',
       submenu: [
-        { role: 'quit' }
+        { role: 'quit' },
+        {
+          label: 'Screenshot',
+          accelerator: 'CommandOrControl+S',
+          click: screenshot
+        }
       ]
     },
     {

@@ -5,6 +5,7 @@ A wrapper around Majsoul web client.
 # Features
 
 - Supports ZH/JP/EN servers.
+- Supports taking screenshots. Screenshots will be saved to desktop.
 - Supports fixed window resolution and aspect ratio for better experience.
 - Disabled browser color correction for brighter colors on some devices.
 

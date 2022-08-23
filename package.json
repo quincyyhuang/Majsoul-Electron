@@ -16,6 +16,7 @@
     "electron-builder": "^23.3.3"
   },
   "dependencies": {
+    "date-fns": "^2.29.2",
     "electron-store": "^8.1.0"
   },
   "build": {
