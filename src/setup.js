@@ -87,6 +87,7 @@ const createGameWindow = (settings) => {
       width: width,
       height: height,
       useContentSize: true,
+      show: false,
       resizable: allowWindowResize,
       maximizable: allowWindowResize,
     });
@@ -102,6 +103,10 @@ const createGameWindow = (settings) => {
       }
     });
 
+    win.once('ready-to-show', () => {
+      win.show();
+    });
+
     gameWin = win;
   }
 }
@@ -111,12 +116,17 @@ const createSettingsWindow = () => {
     width: 600,
     height: 300,
     useContentSize: true,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'settingsPreload.js')
     }
   });
 
   win.loadFile(path.join(__dirname, '../static/settings.html'));
+
+  win.once('ready-to-show', () => {
+    win.show();
+  });
 
   settingsWin = win;
 }
