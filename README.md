@@ -4,7 +4,7 @@ A wrapper around Majsoul web client.
 
 # Features
 
-- Supports CN/JP/EN servers.
+- Supports ZH/JP/EN servers.
 - Supports fixed window resolution and aspect ratio for better experience.
 - Disabled browser color correction for brighter colors on some devices.
 
