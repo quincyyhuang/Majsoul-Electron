@@ -33,6 +33,9 @@
             res: this.resData.selected
           }
           api.startGame(settings);
+        },
+        clearCache: function() {
+          api.clearCache();
         }
       }));
     });
@@ -76,7 +79,11 @@
       </template>
 
       <div class="form-group">
-        <button type="submit">Start Game</button>
+        <button type="submit" id="start-game">Start Game</button>
+      </div>
+
+      <div class="form-group">
+        <button type="button" id="clear-cache" @click="clearCache">Clear all cache</button>
       </div>
     </form>
   </div>

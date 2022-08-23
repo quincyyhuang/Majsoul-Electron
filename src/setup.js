@@ -1,5 +1,5 @@
 const path = require("path");
-const { app, BrowserWindow, ipcMain, screen, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, Menu, session, shell } = require('electron');
 const store = require("./store");
 
 const servers = require("./constants/servers.json");
@@ -34,10 +34,21 @@ const makeMenu = () => {
       role: 'help',
       submenu: [
         {
-          label: 'Majsoul Website',
+          label: 'Majsoul ZH Website',
           click: async () => {
-            const { shell } = require('electron')
             await shell.openExternal('https://www.maj-soul.com/')
+          }
+        },
+        {
+          label: 'Majsoul JP Website',
+          click: async () => {
+            await shell.openExternal('https://mahjongsoul.com/')
+          }
+        },
+        {
+          label: 'Majsoul EN Website',
+          click: async () => {
+            await shell.openExternal('https://mahjongsoul.yo-star.com/')
           }
         }
       ]
@@ -61,6 +72,7 @@ const createGameWindow = (settings) => {
       height: height,
       useContentSize: true,
       resizable: allowWindowResize,
+      maximizable: allowWindowResize,
       webPreferences: {
         additionalArguments: [serverItem.url],
         preload: path.join(__dirname, 'gamePreload.js')
@@ -94,7 +106,6 @@ const createSettingsWindow = () => {
 
 const prepareIPC = () => {
   // Get display resolution
-  console.log(store.path);
   const display = screen.getPrimaryDisplay();
   const supportedResolutions = resolutions.filter(r => display.size.width >= r.width && display.size.height >= r.height);
   const optimalRes = supportedResolutions[Math.floor(supportedResolutions.length / 2)]
@@ -114,6 +125,10 @@ const prepareIPC = () => {
     };
 
     return settings;
+  });
+
+  ipcMain.handle("clearCache", () => {
+    session.defaultSession.clearStorageData();
   });
 
   ipcMain.handle("startGame", (_, settings) => {

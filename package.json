@@ -1,18 +1,27 @@
 {
   "name": "majsoul-electron",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ./src/main.js"
+    "start": "electron ./src/main.js",
+    "build": "electron-builder build"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^20.0.3"
+    "electron": "^20.0.3",
+    "electron-builder": "^23.3.3"
   },
   "dependencies": {
     "electron-store": "^8.1.0"
+  },
+  "build": {
+    "productName": "Majsoul Electron",
+    "mac": {
+      "category": "public.app-category.games",
+      "target": "dmg"
+    }
   }
 }

@@ -9,7 +9,3 @@ app.whenReady().then(() => {
   prepareIPC();
   createSettingsWindow();
 });
-
-app.on("window-all-closed", () => {
-  app.quit();
-});

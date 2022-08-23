@@ -4,7 +4,7 @@ const store = new Store({
   defaults: {
     allowWindowResize: false,
     keepAspectRatio: true,
-    server: "CN",
+    server: "ZH",
   }
 });
 
