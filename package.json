@@ -28,6 +28,15 @@
     },
     "win": {
       "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Game",
+      "files": [
+        "./build/icon.png",
+        "./src/**",
+        "./static/**"
+      ]
     }
   }
 }

@@ -122,6 +122,7 @@ const createGameWindow = (settings) => {
         height: height,
         useContentSize: true,
         show: false,
+        icon: path.join(__dirname, "../build/icon.png"),
         resizable: allowWindowResize,
         maximizable: allowWindowResize,
         fullscreenable: allowWindowResize
@@ -203,6 +204,11 @@ const createSettingsWindow = () => {
       preload: path.join(__dirname, 'settingsPreload.js')
     }
   });
+
+  // Set AppImage icon on linux, bundle does not work somehow
+  if (process.platform === "linux") {
+    win.setIcon(path.join(__dirname, "../build/icon.png"));
+  }
 
   win.loadFile(path.join(__dirname, '../static/settings.html'));
 
