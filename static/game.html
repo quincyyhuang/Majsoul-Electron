@@ -6,8 +6,11 @@
   <title>Majsoul Electron</title>
   <link rel="stylesheet" href="./css/game.css">
   <script type="module">
+    const queryString = location.search;
+    const params = new URLSearchParams(queryString);
+    const url = params.get("url");
     let gameFrame = document.getElementById("game");
-    gameFrame.src = window.electronAPI.url;
+    gameFrame.src = url;
   </script>
 </head>
 

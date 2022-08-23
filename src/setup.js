@@ -89,17 +89,18 @@ const createGameWindow = (settings) => {
       useContentSize: true,
       resizable: allowWindowResize,
       maximizable: allowWindowResize,
-      webPreferences: {
-        additionalArguments: [serverItem.url],
-        preload: path.join(__dirname, 'gamePreload.js')
-      }
     });
 
     if (allowWindowResize && keepAspectRatio) {
       win.setAspectRatio(16/9);
     }
-  
-    win.loadFile(path.join(__dirname, '../static/game.html'));
+
+    // Pass game url by query string
+    win.loadFile(path.join(__dirname, '../static/game.html'), {
+      query: {
+        url: serverItem.url
+      }
+    });
 
     gameWin = win;
   }

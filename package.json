@@ -5,7 +5,7 @@
   "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ./src/main.js",
+    "start": "electron ./src/main.js --enable-logging",
     "build": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder build"
   },
   "author": "Quincy Huang",
@@ -24,6 +24,9 @@
     "mac": {
       "category": "public.app-category.games",
       "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
     }
   }
 }
