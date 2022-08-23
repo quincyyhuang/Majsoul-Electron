@@ -3,12 +3,10 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: macos-latest
-    environment: build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run : echo $GH_TOKEN
       - run: npm install
       - run: npm run build -- --x64 --arm64
