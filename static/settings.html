@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Majsoul Electron</title>
+  <link rel="stylesheet" href="./css/settings.css">
+  <script type="module">
+    const api = window.electronAPI;
+    const settings = await api.getSettings;
+
+    const { allowWindowResize, keepAspectRatio } = settings;
+    const { server, serverList } = settings.server;
+    const { res, resList } = settings.res;
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('data', () => ({
+        serverData: {
+          selected: server,
+          serverList: serverList
+        },
+        resData: {
+          selected: res,
+          resList: resList
+        },
+        allowWindowResize: allowWindowResize,
+        keepAspectRatio: keepAspectRatio,
+        startGame: async function() {
+          let settings = {
+            allowWindowResize: this.allowWindowResize,
+            keepAspectRatio: this.keepAspectRatio,
+            server: this.serverData.selected,
+            res: this.resData.selected
+          }
+          api.startGame(settings);
+        }
+      }));
+    });
+  </script>
+  <script defer src="./js/alpine.js"></script>
+</head>
+
+<body>
+  <div class="settings">
+    <h1>Settings</h1>
+
+    <form x-data="data" @submit.prevent="startGame">
+      <div class="form-group">
+        <label for="server">Server:</label>
+        <select id="server" x-model="serverData.selected">
+          <template x-for="server in serverData.serverList">
+            <option x-text="server" :value="server" :key="server" :selected="server == serverData.selected"></option>
+          </template>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="resolution">Resolution:</label>
+        <select id="resolution" x-model="resData.selected">
+          <template x-for="resolution in resData.resList">
+            <option x-text="resolution" :value="resolution" :key="resolution" :selected="resolution == resData.selected"></option>
+          </template>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="allow-resize">Allow window resize:</label>
+        <input type="checkbox" id="allow-resize" x-model="allowWindowResize">
+      </div>
+
+      <template x-if="allowWindowResize">
+        <div class="form-group">
+          <label for="aspectratio">Keep window 16/9 aspect radio to avoid black bars:</label>
+          <input type="checkbox" id="aspectratio" x-model="keepAspectRatio">
+        </div>
+      </template>
+
+      <div class="form-group">
+        <button type="submit">Start Game</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

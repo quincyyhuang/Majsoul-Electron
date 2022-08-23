@@ -1,0 +1,18 @@
+{
+  "name": "majsoul-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ./src/main.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^20.0.3"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  }
+}
