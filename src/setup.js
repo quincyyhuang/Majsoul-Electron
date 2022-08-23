@@ -101,7 +101,7 @@ const createGameWindow = (settings) => {
   if (serverItem) {
     let win;
 
-    if (process.platform === "darwin" || process.platform === "linux") {
+    if (process.platform === "darwin") {
       win = new BrowserWindow({
         width: width,
         height: height,
@@ -113,9 +113,46 @@ const createGameWindow = (settings) => {
       });
 
       if (allowWindowResize && keepAspectRatio) {
+        // This only works properly as expected on MacOS
         win.setAspectRatio(16/9);
       }
-    } else {
+    } else if (process.platform === "linux") {
+      win = new BrowserWindow({
+        width: width,
+        height: height,
+        useContentSize: true,
+        show: false,
+        resizable: allowWindowResize,
+        maximizable: allowWindowResize,
+        fullscreenable: allowWindowResize
+      });
+
+      if (allowWindowResize && keepAspectRatio) {
+        let isMoving = false;
+        let movingTimer = null;
+        let resizeTimer = null;
+
+        // "resized" event is not supported on Linux and "resize" fires all the time when user is resizing the window
+        win.on('resize', () => {
+          if (!isMoving) {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              const [width, _] = win.getContentSize();
+              win.setContentSize(width, Math.round(width * 9 / 16));
+            }, 300);
+          }
+        });
+
+        win.on('move', () => {
+          // Because move also fires resize but we do not want to resize because that causes weird jerk of the window
+          isMoving = true;
+          clearTimeout(movingTimer);
+          movingTimer = setTimeout(() => {
+            isMoving = false;
+          }, 300);
+        });
+      }
+    } else if (process.platform === "win32") {
       win = new BrowserWindow({
         width: width,
         height: height,
