@@ -36,6 +36,9 @@
         },
         clearCache: function() {
           api.clearCache();
+        },
+        clearUserData: function() {
+          api.clearUserData();
         }
       }));
     });
@@ -83,7 +86,11 @@
       </div>
 
       <div class="form-group">
-        <button type="button" id="clear-cache" @click="clearCache">Clear all cache</button>
+        <button type="button" class="danger-button" id="clear-cache" @click="clearCache">Clear all cache</button>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="danger-button" id="clear-user-data" @click="clearUserData">Clear user config data</button>
       </div>
     </form>
   </div>

@@ -34,6 +34,22 @@ const makeMenu = () => {
       role: 'help',
       submenu: [
         {
+          label: 'Open Developer Tool',
+          accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Alt+Shift+I',
+          click: async () => {
+            let focused = BrowserWindow.getFocusedWindow();
+            if (focused) {
+              focused.webContents.openDevTools();
+            }
+          }
+        },
+        {
+          label: 'Project Page',
+          click: async () => {
+            await shell.openExternal('https://github.com/quincyyhuang/Majsoul-Electron')
+          }
+        },
+        {
           label: 'Majsoul ZH Website',
           click: async () => {
             await shell.openExternal('https://www.maj-soul.com/')
@@ -129,6 +145,10 @@ const prepareIPC = () => {
 
   ipcMain.handle("clearCache", () => {
     session.defaultSession.clearStorageData();
+  });
+
+  ipcMain.handle("clearUserData", () => {
+    store.clear();
   });
 
   ipcMain.handle("startGame", (_, settings) => {

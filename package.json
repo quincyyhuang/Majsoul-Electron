@@ -1,14 +1,14 @@
 {
   "name": "majsoul-electron",
   "version": "0.1.0",
-  "description": "",
+  "description": "A Majsoul web client built with Electron.",
   "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ./src/main.js",
-    "build": "electron-builder build"
+    "build": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder build"
   },
-  "author": "",
+  "author": "Quincy Huang",
   "license": "MIT",
   "devDependencies": {
     "electron": "^20.0.3",
@@ -19,6 +19,7 @@
   },
   "build": {
     "productName": "Majsoul Electron",
+    "appId": "io.quincyhuang.majsoul",
     "mac": {
       "category": "public.app-category.games",
       "target": "dmg"
