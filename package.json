@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "A Majsoul web client built with Electron.",
   "main": "./src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quincyyhuang/Majsoul-Electron.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ./src/main.js --enable-logging",
@@ -17,7 +21,8 @@
   },
   "dependencies": {
     "date-fns": "^2.29.2",
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "electron-updater": "^5.2.1"
   },
   "build": {
     "productName": "Majsoul Electron",
