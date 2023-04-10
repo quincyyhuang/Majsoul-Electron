@@ -1,6 +1,6 @@
 {
   "name": "majsoul-electron",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Majsoul web client built with Electron.",
   "main": "./src/main.js",
   "repository": {
@@ -16,13 +16,13 @@
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "^20.0.3",
-    "electron-builder": "^23.3.3"
+    "electron": "^24.0.0",
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
-    "date-fns": "^2.29.2",
+    "date-fns": "^2.29.3",
     "electron-store": "^8.1.0",
-    "electron-updater": "^5.2.1"
+    "electron-updater": "^5.3.0"
   },
   "build": {
     "productName": "Majsoul Electron",

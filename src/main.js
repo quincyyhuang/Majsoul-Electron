@@ -7,8 +7,8 @@ if (app.isPackaged) {
   autoUpdater.checkForUpdatesAndNotify();
 }
 
-// This fixes color brightness issues
-app.commandLine.appendSwitch('disable-color-correct-rendering');
+// Enable this to get brighter color but may not be accurate
+// app.commandLine.appendSwitch('disable-color-correct-rendering');
 
 app.whenReady().then(() => {
   makeMenu();
